@@ -1,0 +1,16 @@
+# Sports News Feed
+
+## The purpose of this project is to inform its users about everydays sports events and news using a specially designed GUI (Graphical User Interface) system.
+
+You can check the status of project by clicking on [M-Shan TechCrunch projects](https://github.com/M-Shan/TechCrunch/projects)
+
+### How to access a website using python
+
+> The first step is to understand that how we can send URL requests using python. Luckily, Python comes with the package called **urllib** that simplifies this task. This package further contains five modules.
+1. Request
+1. Response
+1. Error
+1. Parse
+1. Robotparser
+
+> To open the source code of any website, we specifically use urlopen function of urllib. Now the next step is to extract relevant information from the website by parsing values. For this task, we use specific function of urllib known as **request and parse**. Moreover, this function also helps to parse out the specific paragraph from the source code that is more relevent to us. 
