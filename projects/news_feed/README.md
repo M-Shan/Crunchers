@@ -2,8 +2,6 @@
 
 ## The purpose of this project is to inform its users about everydays sports events and news using a specially designed GUI (Graphical User Interface) system.
 
-You can check the status of project by clicking on [M-Shan TechCrunch projects](https://github.com/M-Shan/TechCrunch/projects)
-
 ### How to access a website using python
 
 > The first step is to understand that how we can send URL requests using python. Luckily, Python comes with the package called **urllib** that simplifies this task. This package further contains five modules.
@@ -21,3 +19,5 @@ You can check the status of project by clicking on [M-Shan TechCrunch projects](
 1. Selenium
 
 To have a thorough understanding that what actually web scrapping is and how it is performed, click on [Web Scrapping using Pandas and BeautifulSoup](https://www.edureka.co/blog/web-scraping-with-python/)
+
+You can check the status of project by clicking on [M-Shan TechCrunch projects](https://github.com/M-Shan/TechCrunch/projects)
