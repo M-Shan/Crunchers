@@ -1,5 +1,5 @@
 # Projects
-## This file contains useful information regarding current projects
+## This folder contains useful information regarding current projects
 
 
 ## Contents available in projects folder
