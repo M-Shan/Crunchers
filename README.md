@@ -1,4 +1,4 @@
-# Tech Crunchers
+# Tech Crunchers - an amazing website project
 
 Repository for various utilities development as well as for sharing and implementing technological ideas.
 
