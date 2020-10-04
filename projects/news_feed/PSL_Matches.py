@@ -1,5 +1,17 @@
-#This code grabs the data from the suggested website
-#and then stores the links of results of all matches in a list called All_Matches_Links
+"""
+    Script for saving the links of all PSL 2019 matches
+    :file: psl_matches.py
+    :platform: Windows 10
+    :synopsis:
+        This script first uses request function to open the
+        intended psl website. After this, it uses beautiful
+        soup object to extract the source code of web page.
+        In the end, it uses specific classes to store the
+        links of matches in a list called matches_linl[]
+    :author:
+        Muhammad Faheem-ur-Rehman
+        email: faheemlasani1034@gmail.com
+"""
 
 # importing required libraries
 import requests
