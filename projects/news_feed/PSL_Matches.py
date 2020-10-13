@@ -14,32 +14,31 @@
 """
 
 # importing required libraries
-import requests
-from bs4 import BeautifulSoup
 import pandas as pd
+import utilities
 
-# sending my URL request
-url = "https://www.espncricinfo.com/scores/series/8679/season/2020/pakistan-super-league?view=results"
-url_response = requests.get(url)
-source_code = url_response.content
 
-#Making Beautifulsoup object using previously grabbed source code
-soup = BeautifulSoup(source_code, 'lxml')
+def main():
+    """
+        main function
+    """
+    all_matches_link = list()
 
-# making an empty list for storing matches information and an overall list to display all links in tabular form
-matches_links = []
-All_Matches_Links = []
+    # get psl matches links
+    psl_matches_links = utilities.grab_psl_matches_urls("match-highlight border-bottom", "lxml")
 
-# storing the links of results of all matches(read from the web) in a list called matches_links
-for matches_data in soup.find_all(class_='match-highlight border-bottom'):
-    matches = matches_data.find('a')
-    matches_links.append(matches.attrs['href'])
+    if not psl_matches_links:
+        raise RuntimeError('No PSL matches link found')
 
-#creating a data frame using pandas library
-for links in zip(matches_links):
-    All_Matches_Links.append({'Links For Matches': links})
+        # creating a data frame using pandas library
+    for links in zip(psl_matches_links):
+        all_matches_link.append({'Links For Matches': links})
 
-df = pd.DataFrame(All_Matches_Links)
+    df = pd.DataFrame(all_matches_link)
 
-#printitng the links of all matches shown on web page
-print(df)
+    # printing the links of all matches shown on web page
+    print(df)
+
+
+if __name__ == '__main__':
+    main()
