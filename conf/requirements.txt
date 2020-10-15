@@ -4,4 +4,4 @@ numpy
 opencv-python
 scipy
 Beautifulsoup
-Panda
+Pandas
