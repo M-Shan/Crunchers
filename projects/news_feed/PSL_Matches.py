@@ -40,13 +40,13 @@ def main():
 
     # rearranging all fetched data into tabular form
     all_fetched_information = list()
-    for match_no, match_Date, match_place, Team1, Team2, \
-        Team1_score, Team2_score, winner \
+    for match_no, match_Date, match_place, team1, team2, \
+        team1_score, team2_score, winner \
             in zip(match_number, match_date, match_venue, team_a,
                    team_b, team_a_score, team_b_score, winning_team):
         all_fetched_information.append(
-            {'Match Number': match_no, 'Date': match_Date, 'Venue': match_place, ' Team A': Team1,
-             'Team B': Team2, ' A score': Team1_score, ' B score': Team2_score, '  Result  ': winner})
+            {'Match Number': match_no, 'Date': match_Date, 'Venue': match_place, ' Team A': team1,
+             'Team B': team2, ' A score': team1_score, ' B score': team2_score, '  Result  ': winner})
 
     pandas_data_frame = pd.DataFrame(all_fetched_information)
 
