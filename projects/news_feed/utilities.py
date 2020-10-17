@@ -17,29 +17,111 @@ from bs4 import BeautifulSoup
 # global variables to use
 PSL_URL_REQUEST = "https://www.espncricinfo.com/scores/series/8679/season/2020/pakistan-super-league?view=results"
 
+# requesting to access PSL website
+url_response = requests.get(PSL_URL_REQUEST)
+source_code = url_response.content
 
-def grab_psl_matches_urls(class_attribute, soup_layout_format):
+# creating Beautiful siup object
+soup = BeautifulSoup(source_code, 'lxml')
+
+
+def grab_match_number_date_venue(class_attribute):
     """
-       Function for getting a specific urls of psl matches using soup object
+       Function for getting number, date and venue of psl matches using soup object
 
-       :param string class_attribute: Soup class name under which matches link is placed
-       :param string soup_layout_format: Soup reading format
+       :param string class_attribute: Soup class name under which matches number,venue and date is placed
 
-       :returns: list containig the links of all psl matches
+       :returns: matches number, their venue and date of occurrence
        :return type: list
-       """
+    """
+    match_number_date_venue = list()
+    match_number = list()
+    match_venue = list()
+    match_date = list()
 
-    url_response = requests.get(PSL_URL_REQUEST)
-    source_code = url_response.content
+    number_date_venue_element = soup.find_all(class_=class_attribute)
 
-    # making BeautifulSoup object using previously grabbed source code
-    soup = BeautifulSoup(source_code, soup_layout_format)
+    for item in number_date_venue_element:
+        match_number_date_venue.append(item.text)
 
-    matches_links = list()
+    for index in range(0, 30):
+        grabbed_information = match_number_date_venue[index]
+        separated_information = grabbed_information.split(',')
+        match_number.append(separated_information[0])
+        match_venue.append(separated_information[1])
+        match_date.append(separated_information[2])
 
-    # storing the links of results of all matches(read from the web) in a list called matches_links
-    for matches_data in soup.find_all(class_=class_attribute):
-        matches = matches_data.find('a')
-        matches_links.append(matches.attrs['href'])
+    return match_number, match_venue, match_date
 
-    return matches_links
+
+def grab_team_names(class_attribute_general, class_attribute_specific):
+    """
+    Function for getting the names of playing teams using soup object
+
+    :param string class_attribute_general: Soup class name under which team name is placed
+    :param string class_attribute_specific: Soup class name under which team name is placed in text form
+
+    :returns:team names
+    :return type: list
+    """
+    team_names = list()
+    team_a = list()
+    team_b = list()
+    # teams_element = soup.find_all(class_='row no-gutters')
+
+    for first_item in soup.find_all(class_=class_attribute_general):
+        for second_item in first_item.find_all(class_=class_attribute_specific):
+            team_names.append(second_item)
+
+    for index in range(0, 60):
+        if index % 2 == 0:
+            team_a.append(team_names[index].text)
+        else:
+            team_b.append(team_names[index].text)
+
+    return team_a, team_b
+
+
+def grab_team_scores(class_attribute_general, class_attribute_specific):
+    """
+    Function for getting the scores of  teams using soup object
+
+    :param string class_attribute_general: Soup class name under which team scores are placed
+    :param string class_attribute_specific: Soup class name under which team scores are placed in text form
+
+    :returns:team scores
+    :return type: list
+    """
+    team_scores = list()
+    team_a_score = list()
+    team_b_score = list()
+
+    for first_item in soup.find_all(class_=class_attribute_general):
+        for second_item in first_item.find_all(class_=class_attribute_specific):
+            team_scores.append(second_item.text)
+
+    for index in range(0, 60):
+        if index % 2 == 0:
+            team_a_score.append(team_scores[index])
+        else:
+            team_b_score.append(team_scores[index])
+
+    return team_a_score, team_b_score
+
+
+def grab_winning_team(class_attribute):
+    """
+     Function for getting the names winning using soup object
+
+    :param string class_attribute: Soup class name under which winning team name is placed
+
+    :returns:winning team
+    :return type: list
+    """
+    winning_team = list()
+    winning_team_element = soup.find_all(class_=class_attribute)
+
+    for item in winning_team_element:
+        winning_team.append(item.text)
+
+    return winning_team
