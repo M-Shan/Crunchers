@@ -14,15 +14,18 @@
 import requests
 from bs4 import BeautifulSoup
 
+# printing message for user
+print('Fetching PSL 2020 matches data. Please wait ...')
+
 # global variables to use
 PSL_URL_REQUEST = "https://www.espncricinfo.com/scores/series/8679/season/2020/pakistan-super-league?view=results"
 
 # requesting to access PSL website
-url_response = requests.get(PSL_URL_REQUEST)
-source_code = url_response.content
+URL_RESPONSE = requests.get(PSL_URL_REQUEST)
+SOURCE_CODE = URL_RESPONSE.content
 
 # creating Beautiful siup object
-soup = BeautifulSoup(source_code, 'lxml')
+SOUP = BeautifulSoup(SOURCE_CODE, 'lxml')
 
 
 def grab_match_number_date_venue(class_attribute):
@@ -39,7 +42,7 @@ def grab_match_number_date_venue(class_attribute):
     match_venue = list()
     match_date = list()
 
-    number_date_venue_element = soup.find_all(class_=class_attribute)
+    number_date_venue_element = SOUP.find_all(class_=class_attribute)
 
     for item in number_date_venue_element:
         match_number_date_venue.append(item.text)
@@ -69,7 +72,7 @@ def grab_team_names(class_attribute_general, class_attribute_specific):
     team_b = list()
     # teams_element = soup.find_all(class_='row no-gutters')
 
-    for first_item in soup.find_all(class_=class_attribute_general):
+    for first_item in SOUP.find_all(class_=class_attribute_general):
         for second_item in first_item.find_all(class_=class_attribute_specific):
             team_names.append(second_item)
 
@@ -96,7 +99,7 @@ def grab_team_scores(class_attribute_general, class_attribute_specific):
     team_a_score = list()
     team_b_score = list()
 
-    for first_item in soup.find_all(class_=class_attribute_general):
+    for first_item in SOUP.find_all(class_=class_attribute_general):
         for second_item in first_item.find_all(class_=class_attribute_specific):
             team_scores.append(second_item.text)
 
@@ -119,7 +122,7 @@ def grab_winning_team(class_attribute):
     :return type: list
     """
     winning_team = list()
-    winning_team_element = soup.find_all(class_=class_attribute)
+    winning_team_element = SOUP.find_all(class_=class_attribute)
 
     for item in winning_team_element:
         winning_team.append(item.text)

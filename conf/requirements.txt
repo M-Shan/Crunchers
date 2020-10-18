@@ -3,5 +3,7 @@
 numpy
 opencv-python
 scipy
-Beautifulsoup
-Pandas
+bs4
+pandas
+requests
+lxml
