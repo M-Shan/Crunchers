@@ -1,16 +1,13 @@
-"""
-    Script for extracting data of PSL 2019 matches
+""
+    Script for saving the links of all PSL 2019 matches
     :file: psl_matches.py
     :platform: Windows 10
     :synopsis:
         This script first uses request function to open the
-        intended psl website and saves the links of all psl
-        matches in a list. After this, it grabs all the
-        information (including teams, their scores and result)
-        from the website and store it in their relevant lists.
-        At last, this script displays all the information in
-        tabular form using pandas data frame.
-
+        intended psl website. After this, it uses beautiful
+        soup object to extract the source code of web page.
+        In the end, it uses specific classes to store the
+        links of matches in a list called matches_linl[]
     :author:
         Muhammad Faheem-ur-Rehman
         email: faheemlasani1034@gmail.com
@@ -19,43 +16,28 @@
 # importing required libraries
 import pandas as pd
 import utilities
-import simplejson
 
 
 def main():
     """
         main function
     """
+    all_matches_link = list()
 
-    # printing message for user
-    print('Fetching PSL 2020 matches data. Please wait ...')
+    # get psl matches links
+    psl_matches_links = utilities.grab_psl_matches_urls("match-highlight border-bottom", "lxml")
 
-    # calling function to grab match number, venue and date
-    match_number, match_venue, match_date = utilities.grab_match_number_date_venue("small mb-0 match-description")
+    if not psl_matches_links:
+        raise RuntimeError('No PSL matches link found')
 
-    # calling function to grab the team names
-    team_a, team_b = utilities.grab_team_names('row no-gutters', 'name')
+        # creating a data frame using pandas library
+    for links in zip(psl_matches_links):
+        all_matches_link.append({'Links For Matches': links})
 
-    # calling function to grab the team scores
-    team_a_score, team_b_score = utilities.grab_team_scores('row no-gutters', 'score')
+    df = pd.DataFrame(all_matches_link)
 
-    # calling function to grab the name of winning team
-    winning_team = utilities.grab_winning_team('extra-small mb-0 match-description match-description-bottom')
-
-    # rearranging all fetched data into tabular form
-    all_fetched_information = list()
-    for match_no, match_Date, match_place, team1, team2, \
-        team1_score, team2_score, winner \
-            in zip(match_number, match_date, match_venue, team_a,
-                   team_b, team_a_score, team_b_score, winning_team):
-        all_fetched_information.append(
-            {'Match Number': match_no, 'Date': match_Date, 'Venue': match_place, ' Team A': team1,
-             'Team B': team2, ' A score': team1_score, ' B score': team2_score, '  Result  ': winner})
-
-    pandas_data_frame = pd.DataFrame(all_fetched_information)
-
-    # printing all fetched info
-    print(pandas_data_frame.to_string())
+    # printing the links of all matches shown on web page
+    print(df)
 
 
 if __name__ == '__main__':
