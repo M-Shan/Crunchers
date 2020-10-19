@@ -19,10 +19,10 @@
 # importing required libraries
 import pandas as pd
 import utilities
+import simplejson
 
 
 def main():
-
     """
         main function
     """
@@ -52,8 +52,15 @@ def main():
 
     pandas_data_frame = pd.DataFrame(all_fetched_information)
 
-    #printing all fetched info
+    # printing all fetched info
     print(pandas_data_frame.to_string())
+
+    # converting all fetched information into json file format
+    psl_json_data = simplejson.dumps(all_fetched_information)
+
+    # creating a separate json file named as psl_json_data
+    new_file = open('psl_json_data.txt', 'w')
+    new_file.write(psl_json_data)
 
 
 if __name__ == '__main__':
