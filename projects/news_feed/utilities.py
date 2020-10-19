@@ -14,9 +14,6 @@
 import requests
 from bs4 import BeautifulSoup
 
-# printing message for user
-print('Fetching PSL 2020 matches data. Please wait ...')
-
 # global variables to use
 PSL_URL_REQUEST = "https://www.espncricinfo.com/scores/series/8679/season/2020/pakistan-super-league?view=results"
 

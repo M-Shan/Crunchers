@@ -19,13 +19,16 @@
 # importing required libraries
 import pandas as pd
 import utilities
+import simplejson
 
 
 def main():
-
     """
         main function
     """
+
+    # printing message for user
+    print('Fetching PSL 2020 matches data. Please wait ...')
 
     # calling function to grab match number, venue and date
     match_number, match_venue, match_date = utilities.grab_match_number_date_venue("small mb-0 match-description")
@@ -51,7 +54,7 @@ def main():
 
     pandas_data_frame = pd.DataFrame(all_fetched_information)
 
-    #printing all fetched info
+    # printing all fetched info
     print(pandas_data_frame.to_string())
 
 
