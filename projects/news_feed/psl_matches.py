@@ -19,7 +19,6 @@
 # importing required libraries
 import pandas as pd
 import utilities
-import simplejson
 
 
 def main():
@@ -52,18 +51,11 @@ def main():
 
     pandas_data_frame = pd.DataFrame(all_fetched_information)
 
-    # printing all fetched info
+    # printing all fetched information
     print(pandas_data_frame.to_string())
 
-    # converting all fetched information into json file format
-    psl_json_data = simplejson.dumps(all_fetched_information)
-
-    # creating a separate json file named as psl_json_data
-    psl_json_data_file = open('E:/TechCrunch/projects/news_feed/data/psl_json_data.txt', 'w')
-    psl_json_data_file.write(psl_json_data)
-
-    # printing that the psl data has been saved in psl_json_data file
-    print("PSL matches data saved in psl_json_data file")
+    # calling function to create the psl_json_data file and saving it in separate data folder
+    utilities.creating_psl_json_file(all_fetched_information)
 
 
 if __name__ == '__main__':

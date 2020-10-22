@@ -7,4 +7,5 @@ bs4
 pandas
 requests
 lxml
-json5
+simplejson
+

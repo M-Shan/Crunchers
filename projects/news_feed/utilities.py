@@ -13,6 +13,8 @@
 # importing required libraries
 import requests
 from bs4 import BeautifulSoup
+import simplejson
+import os
 
 # global variables to use
 PSL_URL_REQUEST = "https://www.espncricinfo.com/scores/series/8679/season/2020/pakistan-super-league?view=results"
@@ -125,3 +127,24 @@ def grab_winning_team(class_attribute):
         winning_team.append(item.text)
 
     return winning_team
+
+
+def creating_psl_json_file(fetched_information):
+    """
+    Function for converting the fetched information into json file format and saving it
+    in a separate data folder
+
+    :param list fetched_information: Contains information of all psl 2019 matches
+
+    :returns: None
+    """
+
+    psl_json_data = simplejson.dumps(fetched_information)
+    data_folder_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "data")
+    os.mkdir(data_folder_path)
+    psl_json_data_file_path = os.path.join(data_folder_path, "psl_json_data_file.json")
+
+    psl_json_data_file = open(psl_json_data_file_path, 'w')
+    psl_json_data_file.write(psl_json_data)
+
+    print("PSL matches data saved in {}".format('psl_json_data_file'))
