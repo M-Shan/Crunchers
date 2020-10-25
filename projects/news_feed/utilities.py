@@ -141,7 +141,9 @@ def creating_psl_json_file(fetched_information):
 
     psl_json_data = simplejson.dumps(fetched_information)
     data_folder_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "data")
-    os.mkdir(data_folder_path)
+
+    if not os.path.exists(data_folder_path):
+        os.mkdir(data_folder_path)
     psl_json_data_file_path = os.path.join(data_folder_path, "psl_json_data_file.json")
 
     psl_json_data_file = open(psl_json_data_file_path, 'w')
