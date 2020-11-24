@@ -18,26 +18,36 @@
 
 # importing required libraries
 import pandas as pd
+import argparse
 import utilities
 
 
 def main():
     """
-        main function
+    Main function
     """
-    print('Fetching PSL 2020 matches data. Please wait ...')
+    # create the parser
+    psl_arg_parser = argparse.ArgumentParser(description='PSL Matches Calendar Year')
+    # add the arguments
+    psl_arg_parser.add_argument('-cy', type=str, help='Argument for specific PSL calendar year', required=True)
+    args = psl_arg_parser.parse_args()
+    calendar_year = args.cy
+
+    print('Fetching PSL {} matches data. Please wait ...'.format(calendar_year))
+    psl_soup = utilities.create_soup_from_url(utilities.create_psl_url(calendar_year))
 
     # calling function to grab match number, venue and date
-    match_number, match_venue, match_date = utilities.grab_match_number_date_venue("small mb-0 match-description")
+    match_number, match_venue, match_date = utilities.grab_match_number_date_venue(psl_soup,
+                                                                                   "small mb-0 match-description")
 
     # calling function to grab the team names
-    team_a, team_b = utilities.grab_team_names('row no-gutters', 'name')
+    team_a, team_b = utilities.grab_team_names(psl_soup, 'row no-gutters', 'name')
 
     # calling function to grab the team scores
-    team_a_score, team_b_score = utilities.grab_team_scores('row no-gutters', 'score')
+    team_a_score, team_b_score = utilities.grab_team_scores(psl_soup, 'row no-gutters', 'score')
 
     # calling function to grab the name of winning team
-    winning_team = utilities.grab_winning_team('extra-small mb-0 match-description match-description-bottom')
+    winning_team = utilities.grab_winning_team(psl_soup, 'extra-small mb-0 match-description match-description-bottom')
 
     # rearranging all fetched data into tabular form
     all_fetched_information = list()

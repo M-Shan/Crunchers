@@ -1,3 +1,4 @@
 The files with following extension should be ignored.
 
 __pycache__/
+.idea/
